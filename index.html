@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+<head>
+    <title>mondo-tx-heatmap</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="toggle.css">
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+
+    <link rel=“shortcut” href=“favicon.png” type=“image/png” />
+</head>
+
+<body>
+
+<div class="hidebg">&nbsp;</div>
+
+<div class="authpopup">
+    <div class="authpopup__container authpopup__container__title">
+        Enter Your Credentials
+    </div>
+    <div class="authpopup__container">
+        <p>
+            Hello! OAuth signin isn't ready yet, so to play with the transaction heatmap, you'll need to sign in at
+            <a href="https://staging-developers.getmondo.co.uk/" target="_blank">https://staging-developers.getmondo.co.uk/</a>
+            (for staging) or
+            <a href="https://developers.getmondo.co.uk/" target="_blank">https://developers.getmondo.co.uk/</a> (for
+            real transactions), and paste your
+            <em>Sandbox Access Token</em> into the form field below. If you decide to view real transactions, make sure you change the API URL
+            from <code>https://staging-api.getmondo.co.uk</code> to
+            <code>https://api.getmondo.co.uk</code>.
+        </p>
+        <p>
+            Credentials you enter here will be saved in your web browser's local storage, and sent to the Mondo servers
+            to authorise your API call. Use at your own risk!
+        </p>
+    </div>
+    <div class="authpopup__container">
+
+        <div class="formgroup">
+            <label for="apiurlbox">Mondo API URL</label><br>
+            <input type="text" name="apiurlbox" id="apiurlbox" value=""/>
+        </div>
+       <div class="formgroup">
+           <label for="sandboxkeybox">Sandbox Access Token</label><br>
+           <input type="password" name="sandboxkeybox" id="sandboxkeybox" value=""/>
+       </div>
+
+    </div>
+    <div class="authpopup__container" style="text-align: center;">
+        <a class="authpopup__button" href="#" id="continue_btn" style="width: 120px">Continue</a>
+    </div>
+</div>
+
+<div id="sidebar">
+    <div class="sidebar__section">
+        <div class="sidebar__section__body">
+            <p class="sidebar__header">mondo-tx-heatmap</p>
+            <p style="text-align: center;">made by <i class="fa fa-twitter"></i>
+                <a href="https://twitter.com/rmuch" target="_blank">@rmuch</a> &middot; #mondohack III</p>
+            <p style="text-align: center;">fork me <i class="fa fa-github-alt"></i>
+                <a href="https://github.com/rmuch/mondo-tx-heatmap">rmuch/mondo-tx-heatmap</a></p>
+        </div>
+    </div>
+
+
+    <div class="sidebar__section">
+        <div class="sidebar__section__title">Transaction Heat Map</div>
+        <div class="sidebar__section__body">
+            <p>This is a map of the world with your Mondo spending overlaid as a heatmap.</p>
+
+            <p>Some interesting things you might learn from this data are:</p>
+            <ul>
+                <li>Where you spend the most money on a regular basis</li>
+                <li>Which holiday destinations are more expensive</li>
+            </ul>
+
+            <p>With more effort, we could:</p>
+            <ul>
+                <li>
+                    Connect many people's anonymised transactions for economic research, retail spending
+                    metrics, etc.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="sidebar__section">
+        <div class="sidebar__section__title">Options</div>
+
+        <div class="sidebar__section__body">
+            <div class="toggleopt">
+                <div class="toggleopt__label">
+                    Weighted <br> <em class="toggleopt__label__descr">(bigger transactions appear hotter)</em>
+                </div>
+                <div class="togggleopt__switch toggleopt__switch--doubleheight">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="opt_weighted_onoff">
+                        <label class="onoffswitch-label" for="opt_weighted_onoff"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toggleopt">
+                <div class="toggleopt__label">
+                    Time Decay <br> <em class="toggleopt__label__descr">(older transactions appear cooler)</em>
+                </div>
+                <div class="togggleopt__switch toggleopt__switch--doubleheight">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="opt_decay_onoff">
+                        <label class="onoffswitch-label" for="opt_decay_onoff"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar__section">
+        <div class="sidebar__section__title">Filter by Category</div>
+
+        <!--
+        Top-ups have category “mondo”. Valid values are
+        general, eating_out, expenses, transport, cash, bills, entertainment, shopping, holidays, groceries.
+        -->
+        <div class="sidebar__section__body">
+            <!-- TODO: this would be nicer if it was automatic -->
+            <div class="toggleopt">
+                <div class="toggleopt__label">General</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="general_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="general_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Eating Out</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="eating_out_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="eating_out_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Expenses</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="expenses_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="expenses_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Transport</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="transport_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="transport_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Cash</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="cash_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="cash_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Bills</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="bills_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="bills_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Entertainment</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="entertainment_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="entertainment_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Shopping</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="shopping_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="shopping_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Holidays</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="holidays_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="holidays_onoff"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="toggleopt">
+                <div class="toggleopt__label">Groceries</div>
+                <div class="togggleopt__switch">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="groceries_onoff"
+                               checked>
+                        <label class="onoffswitch-label" for="groceries_onoff"></label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--
+    <div class="section_footer section_body">
+        <p>by <a href="https://twitter.com/rmuch" target="_blank">@rmuch</a> &middot; #mondohack III</p>
+        <p>github <a href="https://github.com/rmuch/mondo-tx-heatmap">rmuch/mondo-tx-heatmap</a></p>
+    </div>
+    -->
+</div>
+
+<div id="map"></div>
+
+<!-- bower dependencies -->
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+
+<!-- application -->
+<script type="text/javascript" src="lightgreystyle.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+<!-- google maps api -->
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
+<!--
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?libraries=visualization&callback=initMap2"></script>
+        -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0) {
+            alert("This site is only tested with Google Chrome at the moment, because it requires some ES6 features." +
+                    "You can try with your current browser, but if anything appears broken, please try Google Chrome.")
+        }
+
+        initMap2();
+        initJq();
+    });
+
+</script>
+
+</body>
+</html>

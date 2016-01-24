@@ -1,0 +1,195 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Muli:300,300italic,400,400italic);
+
+::selection {
+    background: #ff5679; /* was fff729 */
+    color: #fff;
+}
+
+body {
+    font-family: "Muli", sans-serif;
+    font-weight: lighter;
+}
+
+a {
+    color: #f13a51;
+}
+
+a:visited {
+    color: #f13a51;
+}
+
+a:active {
+    color: #f13a51;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden; /* stop bouncing when scrolling on OS X */
+}
+
+.hidebg {
+    position:absolute;
+    top:0%;
+    left:0%;
+    width:100%;
+    height:100%;
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 998;
+}
+
+.authpopup {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:600px;
+    height:490px;
+    margin-left:-300px;
+    margin-top:-245px;
+    z-index: 999;
+    color: #000;
+    background-color:  #fff;
+    font-size: 10pt;
+}
+
+.authpopup__button {
+    background-color:  #FA5F7E;
+    color: #fff;
+
+    text-decoration: none;
+    padding: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    float: none;
+    clear: both;
+    /* display: block; */
+}
+
+.authpopup__button:active {
+    color: #fff;
+}
+
+.authpopup__button:visited {
+    color:#fff;
+}
+
+.authpopup__container__title {
+    text-align: center;
+    color: #fff;
+    background-color: #000;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+}
+
+.authpopup__container {
+    clear:both;
+    padding: 12px;
+}
+
+.formgroup {
+    height: 100%;
+    padding-bottom: 20px;
+}
+
+.formgroup label {
+    float: none;
+    /*font-size: 12pt;*/
+    width: 180px;
+}
+
+.formgroup input {
+    float: none;
+    font-size: 12pt;
+    display: block;
+    clear: none;
+    width: 99%;
+}
+
+
+#sidebar {
+    width: 288px;
+    height: 100%;
+    display: block;
+    float: left;
+    clear: none;
+    overflow: scroll;
+    font-size: 10pt;
+}
+
+.sidebar__section {clear:both;}
+
+.sidebar__section__title {
+    text-align: center;
+    color: #fff; /* was fff / 000 */
+    background-color: #000; /* was 000 / ededed */
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.sidebar__section__body {
+    padding-left: 8px;
+    padding-right: 8px;
+    /*margin-top: 8px;
+    margin-bottom: 8px;*/
+    /* overflow: hidden; */
+}
+
+.sidebar__header {
+    text-align: center;
+    font-size: 16pt;
+    font-weight: normal;
+    font-style: italic;
+}
+
+#map {
+    width: calc(100% - 288px);
+    height: 100%;
+    display: block;
+    float: left;
+    clear: none;
+}
+
+.toggleopt {
+    width: 100%;
+    height:100%;
+    clear: both;
+    padding-top:12px;
+    padding-bottom:12px;
+    padding-left: 2px;
+    border-bottom: 1px solid #CCCCCC;
+    display: block;
+    overflow: hidden;
+}
+
+.toggleopt:last-child {
+    border-bottom: none;
+}
+
+.toggleopt__label {
+    width: calc(100% - 40px);
+    display: inline-block;
+    float: left;
+}
+
+.toggleopt__label__descr {
+    font-size: 8pt;
+}
+
+.togggleopt__switch {
+    width:40px;
+    display: block;
+    float: left;
+
+}
+
+/* hack for double height switch */
+.toggleopt__switch--doubleheight {
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+}
